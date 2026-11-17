@@ -1,5 +1,6 @@
 package fr.epita.coffee_machine.service;
 
+import fr.epita.coffee_machine.dto.CoffeeCreateDto;
 import fr.epita.coffee_machine.dto.CoffeeDto;
 import fr.epita.coffee_machine.entity.Coffee;
 import fr.epita.coffee_machine.mapper.CoffeeMapper;
@@ -39,7 +40,9 @@ public class CoffeeServiceImpl implements CoffeeService {
     }
 
     @Override
-    public CoffeeDto create(CoffeeDto dto) {
-        return null;
+    public CoffeeDto create(CoffeeCreateDto dto) {
+        Coffee entity = mapper.toEntity(dto);
+        Coffee saved = repository.save(entity);
+        return mapper.toDto(saved);
     }
 }
