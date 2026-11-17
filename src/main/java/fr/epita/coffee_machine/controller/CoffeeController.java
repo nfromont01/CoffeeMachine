@@ -5,6 +5,7 @@ import fr.epita.coffee_machine.entity.Coffee;
 import fr.epita.coffee_machine.repository.CoffeeRepository;
 import fr.epita.coffee_machine.service.CoffeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,9 @@ public class CoffeeController {
         return service.allCoffees();
     }
 
-    @GetMapping("/coffee/{id}")
-    Optional<CoffeeDto> coffee(@PathVariable Long id) {
-        return service.oneCoffee(id);
+    @GetMapping("/coffees/{id}")
+    ResponseEntity<CoffeeDto> coffee(@PathVariable Long id) {
+        return service.oneCoffee(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
