@@ -6,9 +6,11 @@ import fr.epita.coffee_machine.repository.CoffeeRepository;
 import fr.epita.coffee_machine.service.CoffeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,9 +20,15 @@ public class CoffeeController {
 
     @GetMapping("/coffees")
     List<CoffeeDto> coffees() {
-//        CoffeeDto bob = new  CoffeeDto(2L, "Bob", 88);
-//        bob.name();
+
+
+
 
         return service.allCoffees();
+    }
+
+    @GetMapping("/coffee/{id}")
+    Optional<CoffeeDto> coffee(@PathVariable Long id) {
+        return service.oneCoffee(id);
     }
 }
